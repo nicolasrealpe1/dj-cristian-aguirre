@@ -1,0 +1,42 @@
+name: Bot de fechas (Telegram)
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # GitHub lo corre cada 5–15 min aprox.
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: bot
+  cancel-in-progress: false
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet pillow
+      - name: Leer mensajes de Telegram
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          ALLOWED_IDS: ${{ vars.ALLOWED_IDS }}
+        run: python bot/bot.py
+      - name: Publicar cambios
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "bot-fechas"
+          git config user.email "bot-fechas@users.noreply.github.com"
+          git add -A events.json img/flyers bot/offset.txt
+          if git diff --cached --quiet; then echo "Sin cambios"; exit 0; fi
+          git commit -m "Bot: actualizar fechas"
+          git push
+          # Los pushes del bot no disparan Pages solos; se lo pedimos
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
