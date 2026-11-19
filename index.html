@@ -103,8 +103,9 @@ section{padding:110px 0}
 
 /* SPOTLIGHT */
 .spot{position:relative;height:78vh;min-height:460px;overflow:hidden}
-.spot img{width:100%;height:100%;object-fit:cover;object-position:center 8%}
-.spot::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--bg) 2%,rgba(5,5,5,.2) 50%,var(--bg) 100%)}
+.spot img{position:absolute;inset:0;width:100%;height:100%}.spot .bk{object-fit:cover;filter:blur(28px) brightness(.6);transform:scale(1.15)}.spot .fg{object-fit:contain;object-position:center 20%;z-index:1}.spot::after{z-index:1}
+@media(max-width:700px){.spot .fg{object-fit:cover}}
+.spot::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--bg) 0%,rgba(5,5,5,.15) 35%,transparent 70%,rgba(5,5,5,.7) 100%)}
 .spot .q{position:absolute;z-index:2;left:0;right:0;bottom:50px;text-align:center;padding:0 20px}
 .spot h3{font-size:clamp(34px,5.5vw,72px);font-weight:900;text-transform:uppercase}
 
@@ -377,7 +378,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </section>
 
 <div class="spot">
-  <img src="img/39.jpg" alt="Cristian Aguirre bajo el reflector" loading="lazy">
+  <img class="bk" src="img/g20.jpg" alt="" loading="lazy"><img class="fg" src="img/g20.jpg" alt="Cristian Aguirre cantando bajo el reflector" loading="lazy">
   <div class="q"><h3 class="rv">El Peor Hombre <span class="grad">del Mundo</span></h3></div>
 </div>
 
@@ -412,13 +413,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <div class="center rv"><div class="kick">Fotos / Videos</div><h2 class="title">Galería</h2></div>
     <div class="ggrid" id="grid">
       <button class="t"><img src="img/azul.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
-      <button class="w"><img src="img/g21.jpg" alt="" loading="lazy" style="object-position:center 40%"></button>
-      <button class="t"><img src="img/g16.jpg" alt="" loading="lazy" style="object-position:center 20%"></button>
-      <button><img src="img/g17.jpg" alt="" loading="lazy" style="object-position:center 30%"></button>
-      <button><img src="img/g19.jpg" alt="" loading="lazy" style="object-position:center 30%"></button>
-      <button class="w"><img src="img/muchachos.jpg" alt="" loading="lazy" style="object-position:center 30%"></button>
+      <button class="t"><img src="img/g16.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
+      <button class="t"><img src="img/g17.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
+      <button class="t"><img src="img/g19.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
+      <button class="t"><img src="img/g30.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
+      <button class="t"><img src="img/g25.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
+      <button class="t"><img src="img/g33.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
       <button class="t"><img src="img/g18.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
-      <button class="t"><img src="img/g20.jpg" alt="" loading="lazy" style="object-position:center 35%"></button>
     </div>
     <div class="center" style="margin-top:36px"><a class="btn" href="https://www.instagram.com/cristian_aguirreoficial/" target="_blank" rel="noopener">Más en Instagram</a></div>
   </div>
