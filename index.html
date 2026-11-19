@@ -226,8 +226,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 /* PLAYER */
 .player{position:fixed;left:0;right:0;bottom:0;z-index:60;height:76px;background:#000;border-top:3px solid #333;display:flex;align-items:center;gap:14px;padding:0 18px}
-.player .cov{width:96px;height:54px;flex:none;border-radius:4px;overflow:hidden;background:#111}
-.player .cov iframe{width:100%;height:100%;border:0;pointer-events:none}
+.player .disc{width:50px;height:50px;flex:none;border-radius:50%;background:#111;border:2px solid #222;display:grid;place-items:center;overflow:hidden}
+.player .disc img{width:86%;height:86%;object-fit:contain}
+.player.on .disc{animation:spin 6s linear infinite;border-color:var(--mg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ythide{position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:0;pointer-events:none;overflow:hidden}
+.ythide iframe{width:200px;height:200px;border:0}
 .snd{background:var(--mg);color:#fff;border:0;border-radius:30px;padding:9px 16px;font:600 12px 'Poppins';cursor:pointer;animation:pulse2 1.8s infinite;white-space:nowrap}
 @keyframes pulse2{50%{transform:scale(1.06)}}
 .vid .yt-fb{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:18px;gap:10px;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent 70%);font:600 13px 'Poppins';text-align:center}
@@ -239,10 +243,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .eq i:nth-child(2){animation-delay:-.3s!important}.eq i:nth-child(3){animation-delay:-.6s!important}.eq i:nth-child(4){animation-delay:-.15s!important}
 @keyframes eq{0%{height:3px}50%{height:14px}100%{height:6px}}
 .player .lv{color:var(--mg);font-weight:700;margin-right:4px;display:none}.player.on .lv{display:inline}
-@media(max-width:560px){.player{gap:10px;padding:0 12px}.player .cov{width:64px;height:40px}.player .t{display:block!important}.player .t b{font-size:12px}.player .t small{font-size:10px}}
+@media(max-width:560px){.player{gap:10px;padding:0 12px}.player .disc{width:42px;height:42px}.player .t{display:block!important}.player .t b{font-size:12px}.player .t small{font-size:10px}}
 .player .t{flex:1;min-width:0}
 .player .t b{display:block;font:600 14px 'Poppins';white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.player .t small{color:var(--mute);font-size:12px}
+.player .t small{color:var(--mute);font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .player .bar{position:absolute;top:-3px;left:0;right:0;height:3px}
 .player .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--mg)}
 .pb{background:none;border:0;color:#fff;cursor:pointer;font-size:18px;width:40px;height:40px}
@@ -483,7 +487,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <div class="player" id="player">
   <div class="bar"><i id="prog"></i></div>
-  <div class="cov"><div id="ytp"></div></div>
+  <div class="disc"><img src="img/icon.png" alt=""></div><div class="ythide" aria-hidden="true"><div id="ytp"></div></div>
   <div class="t"><b><span class="eq"><i></i><i></i><i></i><i></i></span><span id="tt">Show en vivo</span></b><small><span class="lv">● En vivo</span> DJ Cristian Aguirre</small></div>
   <button class="snd" id="snd" hidden>🔊 Activar sonido</button>
   <button class="pb" id="prev" aria-label="Anterior">⏮</button>
@@ -575,7 +579,8 @@ function unlock(){wantSound=true;silent=false;if(unlocked||!ready)return;unlocke
 // Pantalla de entrada: el clic en "Entrar con sonido" es el permiso que piden los navegadores para sonar
 const gate=document.getElementById('gate');
 const closeGate=()=>{gate.classList.add('out');setTimeout(()=>gate.remove(),700)};
-document.getElementById('gateGo').onclick=e=>{e.stopPropagation();unlock();closeGate()};
+document.getElementById('gateGo').onclick=e=>{e.stopPropagation();unlock();closeGate();
+  document.querySelectorAll('.reel video').forEach(v=>{v.muted=false;const p=v.play();if(p)p.then(()=>{v.pause();v.muted=true;v.currentTime=0}).catch(()=>{v.muted=true})})};
 ['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{if(!silent&&!document.getElementById('gate'))unlock()},{passive:true}));
 snd.onclick=e=>{e.stopPropagation();unlock()};
 
@@ -616,18 +621,20 @@ const icon=r=>r.querySelector('.mu').textContent=r.querySelector('video').muted?
 const muteAll=ex=>rs.forEach(o=>{if(o!==ex){o.querySelector('video').muted=true;o.classList.remove('snd');icon(o)}});
 function duck(){if(ducked||!bar||!bar.getVolume)return;ducked=true;wasOn=bar.getPlayerState()===1;let v=bar.getVolume();const t=setInterval(()=>{v-=3;if(v<=0){clearInterval(t);try{bar.pauseVideo()}catch(_){}}else bar.setVolume(v)},60)}
 function unduck(){if(!ducked)return;ducked=false;if(!unlocked||!wasOn)return;try{bar.playVideo();fadeIn()}catch(_){}}
-function sound(r){const v=r.querySelector('video');muteAll(r);v.muted=false;v.play().then(()=>{r.classList.add('snd');icon(r);cur=r;duck()}).catch(()=>{v.muted=true;v.play().catch(()=>{});icon(r)})}
+function sound(r){const v=r.querySelector('video');muteAll(r);v.muted=false;cur=r;v.play().then(()=>{r.classList.add('snd');icon(r);duck();setTimeout(()=>{if(v.paused&&cur===r){v.muted=true;v.play().catch(()=>{});r.classList.remove('snd');icon(r)}},400)}).catch(()=>{v.muted=true;v.play().catch(()=>{});icon(r)})}
 function quiet(r){const v=r.querySelector('video');v.muted=true;r.classList.remove('snd');icon(r);if(cur===r){cur=null;setTimeout(()=>{if(!cur)unduck()},250)}}
 const ratio=new Map(),strip=document.querySelector('.reels');
 // Calcula qué tanto se ve cada reel (pantalla + franja deslizable). Se recalcula al bajar o deslizar.
 function vis(r){const b=r.getBoundingClientRect(),s=strip.getBoundingClientRect();
  const w=Math.max(0,Math.min(b.right,s.right,innerWidth)-Math.max(b.left,s.left,0)),h=Math.max(0,Math.min(b.bottom,innerHeight)-Math.max(b.top,0));
  return b.width&&b.height?(w*h)/(b.width*b.height):0}
-function check(){rs.forEach(r=>{const x=vis(r),v=r.querySelector('video');ratio.set(r,x);
-  if(x>.25){if(v.paused&&!r.dataset.stop)v.play().catch(()=>{})}else{if(!v.paused)v.pause();if(!v.muted)quiet(r);delete r.dataset.off;delete r.dataset.stop}});
- let best=null,br=0;rs.forEach(r=>{const x=ratio.get(r)||0;if(x>=.6&&x>br+.01&&!r.dataset.off){best=r;br=x}});
- if(unlocked&&best&&best!==cur)sound(best);
- if(cur&&(ratio.get(cur)||0)<.35)quiet(cur)}
+function check(){let best=null,br=0;
+ rs.forEach(r=>{const x=vis(r);ratio.set(r,x);if(x>=.5&&x>br+.01){best=r;br=x}});
+ rs.forEach(r=>{const v=r.querySelector('video');
+  if(r===best){if(v.paused)v.play().catch(()=>{})}
+  else{if(!v.paused)v.pause();if(!v.muted)quiet(r);if((ratio.get(r)||0)<.1)delete r.dataset.off}});
+ if(best&&unlocked&&!best.dataset.off&&best!==cur)sound(best);
+ if(cur&&cur!==best)quiet(cur)}
 let tk=0;const sched=()=>{if(!tk){tk=1;requestAnimationFrame(()=>{tk=0;check()})}};
 addEventListener('scroll',sched,{passive:true});addEventListener('resize',sched);strip.addEventListener('scroll',sched,{passive:true});
 setInterval(check,700);
