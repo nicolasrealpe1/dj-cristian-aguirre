@@ -176,7 +176,9 @@ section{padding:110px 0}
 .reel video{width:100%;height:100%;object-fit:cover;border-radius:15px;display:block;background:#000}
 .reel .mu{all:unset;cursor:pointer;position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.6);display:grid;place-items:center;font-size:18px;backdrop-filter:blur(4px)}
 .reel.snd .mu{background:var(--mg)}
-@media(max-width:700px){.reels{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.reel{scroll-snap-align:center}}
+@media(max-width:700px){.reels{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch;padding-bottom:6px;scrollbar-width:none}.reels::-webkit-scrollbar{display:none}.reel{scroll-snap-align:center;touch-action:pan-x pan-y}}
+/* el video no captura el dedo: así la página siempre puede subir/bajar */
+.reel video{pointer-events:none}
 .vids{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:14px;margin-top:44px}
 .vid{all:unset;cursor:pointer;position:relative;border-radius:8px;overflow:hidden;background:#111 center/cover no-repeat;aspect-ratio:16/9;width:100%}
 .vid.main{grid-row:span 2;aspect-ratio:auto;min-height:100%}
@@ -221,6 +223,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 /* FLOAT WA */
 .fwa{position:fixed;right:18px;bottom:92px;z-index:70;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:pulse 2.5s infinite}
+.fwa{transition:opacity .3s,transform .3s}.fwa.off{opacity:0;transform:scale(.6);pointer-events:none}
 .fwa svg{width:30px;height:30px;fill:#fff}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 
@@ -337,7 +340,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <p>Su crecimiento también se refleja en el entorno digital, donde reúne una comunidad de <b>más de 1,14 millones</b> de seguidores y suscriptores.</p>
       <div class="btns">
         <a class="btn g" href="#reservas">Reservar a Cristian</a>
-        <a class="btn" href="#" data-wa="Hola Cristian, ¿me puedes enviar tu portafolio y tarifas?">Pedir portafolio por WhatsApp</a>
+        <a class="btn" href="#shows">Ver sus shows en vivo</a>
       </div>
     </div>
   </div>
@@ -529,6 +532,8 @@ function renderEV(){const today=new Date();today.setHours(0,0,0,0);let html='',s
 }
 fetch('events.json?'+Date.now()).then(r=>r.json()).then(j=>{EV=j}).catch(()=>{}).finally(()=>renderEV());
 const wa=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+/* botón flotante: no compite con el CTA de la portada ni con el formulario */
+(()=>{const f=document.querySelector('.fwa'),h=document.querySelector('.hero'),r=document.getElementById('reservas');if(!f)return;const u=()=>{const hb=h?h.getBoundingClientRect().bottom:0,rb=r.getBoundingClientRect();f.classList.toggle('off',hb>innerHeight*.3||(rb.top<innerHeight*.7&&rb.bottom>0))};addEventListener('scroll',u,{passive:true});addEventListener('resize',u);u()})();
 document.querySelectorAll('[data-wa]').forEach(a=>{a.href=wa(a.dataset.wa);a.target='_blank';a.rel='noopener'});
 
 document.getElementById('form').onsubmit=e=>{e.preventDefault();const v=id=>document.getElementById(id).value.trim();
@@ -616,7 +621,7 @@ rs.forEach(r=>{const v=r.querySelector('video');v.muted=true;v.defaultMuted=true
 const prime=()=>{rs.forEach(r=>{const v=r.querySelector('video'),b=r.getBoundingClientRect();if(b.bottom>0&&b.top<innerHeight)v.play().catch(()=>{})});removeEventListener('touchend',prime)};
 addEventListener('touchend',prime,{passive:true});
 // Tocar el video: reproduce si está quieto, si no, activa/desactiva el sonido
-rs.forEach(r=>r.querySelector('video').addEventListener('click',()=>{const v=r.querySelector('video');if(v.paused){v.play().catch(()=>{});return}r.querySelector('.mu').click()}));
+rs.forEach(r=>r.addEventListener('click',e=>{if(e.target.closest('.mu'))return;const v=r.querySelector('video');if(v.paused){v.play().catch(()=>{});return}r.querySelector('.mu').click()}));
 const icon=r=>r.querySelector('.mu').textContent=r.querySelector('video').muted?'🔇':'🔊';
 const muteAll=ex=>rs.forEach(o=>{if(o!==ex){o.querySelector('video').muted=true;o.classList.remove('snd');icon(o)}});
 function duck(){if(ducked||!bar||!bar.getVolume)return;ducked=true;wasOn=bar.getPlayerState()===1;let v=bar.getVolume();const t=setInterval(()=>{v-=3;if(v<=0){clearInterval(t);try{bar.pauseVideo()}catch(_){}}else bar.setVolume(v)},60)}
