@@ -161,6 +161,7 @@ section{padding:110px 0}
 /* entrada */
 .gate{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(ellipse at center,rgba(60,0,0,.85),rgba(0,0,0,.97) 70%),url(img/hero.jpg) center/cover;transition:opacity .6s}
 @media(max-width:700px){.book>.rv{position:relative}.bkph{position:absolute;top:30px;right:0;margin:0!important}.bkph img{width:108px!important;height:108px!important}.book .title{padding-right:118px;min-height:116px}}
+.social a{padding:10px 4px;min-height:44px}
 .gate.out{opacity:0;pointer-events:none}
 .gate h2{font:900 clamp(44px,10vw,110px) 'Poppins';text-transform:uppercase;line-height:.9;margin:14px 0 10px}
 .gate p{color:#ddd;max-width:420px;line-height:1.6}
@@ -362,9 +363,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   <div class="wrap">
     <div class="center rv"><div class="kick">Detrás de cámaras</div><h2 class="title">Puro <span class="grad">estilo</span></h2></div>
     <div class="reels">
-      <div class="reel rv"><video src="vid/reel1.mp4" poster="vid/reel1.jpg" muted loop playsinline preload="none"></video><button class="mu" aria-label="Activar sonido">🔇</button></div>
-      <div class="reel rv"><video src="vid/reel2.mp4" poster="vid/reel2.jpg" muted loop playsinline preload="none"></video><button class="mu" aria-label="Activar sonido">🔇</button></div>
-      <div class="reel rv"><video src="vid/reel3.mp4" poster="vid/reel3.jpg" muted loop playsinline preload="none"></video><button class="mu" aria-label="Activar sonido">🔇</button></div>
+      <div class="reel rv"><video data-src="vid/reel1" poster="vid/reel1.jpg" muted loop playsinline webkit-playsinline preload="metadata"></video><button class="mu" aria-label="Activar sonido">🔇</button></div>
+      <div class="reel rv"><video data-src="vid/reel2" poster="vid/reel2.jpg" muted loop playsinline webkit-playsinline preload="metadata"></video><button class="mu" aria-label="Activar sonido">🔇</button></div>
+      <div class="reel rv"><video data-src="vid/reel3" poster="vid/reel3.jpg" muted loop playsinline webkit-playsinline preload="metadata"></video><button class="mu" aria-label="Activar sonido">🔇</button></div>
     </div>
     <div class="center" style="margin-top:36px"><a class="btn g" href="#reservas">Reservar a Cristian</a></div>
   </div>
@@ -527,7 +528,7 @@ const wa=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
 document.querySelectorAll('[data-wa]').forEach(a=>{a.href=wa(a.dataset.wa);a.target='_blank';a.rel='noopener'});
 
 document.getElementById('form').onsubmit=e=>{e.preventDefault();const v=id=>document.getElementById(id).value.trim();
-  const msg=`Hola Cristian 👋 Quiero cotizar un evento:\n• Nombre: ${v('fn')}\n• Ciudad: ${v('fc')}\n• Evento: ${v('ft')}\n• Fecha: ${v('fd')}\n• Invitados: ${v('fp')||'—'}\n• Detalles: ${v('fm')||'—'}`;
+  const msg=`Hola Cristian 👋 Quiero cotizar un evento:\n• Nombre: ${v('fn')}\n• Ciudad: ${v('fc')}\n• Evento: ${v('ft')}\n• Fecha: ${v('fd').split('-').reverse().join('/')}\n• Invitados: ${v('fp')||'—'}\n• Detalles: ${v('fm')||'—'}`;
   window.open(wa(msg),'_blank')};
 
 const nav=document.getElementById('nav'),menu=document.getElementById('menu');
@@ -604,20 +605,33 @@ document.querySelectorAll('[data-n]').forEach(el=>{el.textContent=fmt(+el.datase
 
 // Reels: al verse suenan solos (si el visitante entró con sonido) y la música de fondo baja; al salir, la música vuelve
 (()=>{const rs=[...document.querySelectorAll('.reel')];let cur=null,ducked=false,wasOn=false;
+// En celular usa la versión liviana; muted debe ser propiedad (no solo atributo) para que iPhone deje reproducir solo
+rs.forEach(r=>{const v=r.querySelector('video');v.muted=true;v.defaultMuted=true;v.src=v.dataset.src+(innerWidth<700?'-m':'')+'.mp4'});
+// Primer toque en la página: iPhone exige un gesto para reproducir; aprovechamos el primero
+const prime=()=>{rs.forEach(r=>{const v=r.querySelector('video'),b=r.getBoundingClientRect();if(b.bottom>0&&b.top<innerHeight)v.play().catch(()=>{})});removeEventListener('touchend',prime)};
+addEventListener('touchend',prime,{passive:true});
+// Tocar el video: reproduce si está quieto, si no, activa/desactiva el sonido
+rs.forEach(r=>r.querySelector('video').addEventListener('click',()=>{const v=r.querySelector('video');if(v.paused){v.play().catch(()=>{});return}r.querySelector('.mu').click()}));
 const icon=r=>r.querySelector('.mu').textContent=r.querySelector('video').muted?'🔇':'🔊';
 const muteAll=ex=>rs.forEach(o=>{if(o!==ex){o.querySelector('video').muted=true;o.classList.remove('snd');icon(o)}});
 function duck(){if(ducked||!bar||!bar.getVolume)return;ducked=true;wasOn=bar.getPlayerState()===1;let v=bar.getVolume();const t=setInterval(()=>{v-=3;if(v<=0){clearInterval(t);try{bar.pauseVideo()}catch(_){}}else bar.setVolume(v)},60)}
 function unduck(){if(!ducked)return;ducked=false;if(!unlocked||!wasOn)return;try{bar.playVideo();fadeIn()}catch(_){}}
 function sound(r){const v=r.querySelector('video');muteAll(r);v.muted=false;v.play().then(()=>{r.classList.add('snd');icon(r);cur=r;duck()}).catch(()=>{v.muted=true;v.play().catch(()=>{});icon(r)})}
 function quiet(r){const v=r.querySelector('video');v.muted=true;r.classList.remove('snd');icon(r);if(cur===r){cur=null;setTimeout(()=>{if(!cur)unduck()},250)}}
-const ratio=new Map();
-const io=new IntersectionObserver(es=>{es.forEach(e=>{ratio.set(e.target,e.intersectionRatio);const v=e.target.querySelector('video');if(e.isIntersecting)v.play().catch(()=>{});else{v.pause();quiet(e.target);delete e.target.dataset.off}});
- // el reel más visible suena (solo si el visitante activó sonido)
+const ratio=new Map(),strip=document.querySelector('.reels');
+// Calcula qué tanto se ve cada reel (pantalla + franja deslizable). Se recalcula al bajar o deslizar.
+function vis(r){const b=r.getBoundingClientRect(),s=strip.getBoundingClientRect();
+ const w=Math.max(0,Math.min(b.right,s.right,innerWidth)-Math.max(b.left,s.left,0)),h=Math.max(0,Math.min(b.bottom,innerHeight)-Math.max(b.top,0));
+ return b.width&&b.height?(w*h)/(b.width*b.height):0}
+function check(){rs.forEach(r=>{const x=vis(r),v=r.querySelector('video');ratio.set(r,x);
+  if(x>.25){if(v.paused&&!r.dataset.stop)v.play().catch(()=>{})}else{if(!v.paused)v.pause();if(!v.muted)quiet(r);delete r.dataset.off;delete r.dataset.stop}});
  let best=null,br=0;rs.forEach(r=>{const x=ratio.get(r)||0;if(x>=.6&&x>br+.01&&!r.dataset.off){best=r;br=x}});
  if(unlocked&&best&&best!==cur)sound(best);
- if(cur&&(ratio.get(cur)||0)<.35)quiet(cur);
-},{threshold:[0,.35,.6,.8,1]});
-rs.forEach(r=>{io.observe(r);r.querySelector('.mu').onclick=()=>{const v=r.querySelector('video');if(v.muted){delete r.dataset.off;sound(r)}else{r.dataset.off=1;quiet(r)}}})})();
+ if(cur&&(ratio.get(cur)||0)<.35)quiet(cur)}
+let tk=0;const sched=()=>{if(!tk){tk=1;requestAnimationFrame(()=>{tk=0;check()})}};
+addEventListener('scroll',sched,{passive:true});addEventListener('resize',sched);strip.addEventListener('scroll',sched,{passive:true});
+setInterval(check,700);
+rs.forEach(r=>{r.querySelector('.mu').onclick=()=>{const v=r.querySelector('video');if(v.muted){delete r.dataset.off;sound(r)}else{r.dataset.off=1;quiet(r)}}})})();
 </script>
 </body>
 </html>
