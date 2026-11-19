@@ -201,6 +201,11 @@ def handle(msg):
 def main():
     if not TOKEN:
         print("Falta TG_TOKEN"); return
+    me = api("getMe")["result"]
+    wh = api("getWebhookInfo")["result"]
+    print(f"Bot: @{me.get('username')} · webhook: {'sí' if wh.get('url') else 'no'} · pendientes: {wh.get('pending_update_count')}")
+    if wh.get("url"):
+        api("deleteWebhook")
     offset = 0
     if os.path.exists(OFFSET):
         offset = int(open(OFFSET).read().strip() or 0)
