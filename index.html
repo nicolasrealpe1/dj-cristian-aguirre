@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DJ Cristian Aguirre</title>
+<meta name="description" content="DJ Cristian Aguirre — contrataciones para discotecas, eventos privados, bodas y empresas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--bg2:#0f0f0f;--ink:#fff;--mute:#b5b5b5;--mg:#e10600;--or:#ff3b30;--cy:#ffffff;--line:rgba(255,255,255,.1);--wa:#25d366}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Raleway',sans-serif;overflow-x:hidden;padding-bottom:76px}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:'Poppins',sans-serif;line-height:1}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.kick{font:600 13px 'Poppins';letter-spacing:.3em;text-transform:uppercase;color:var(--mg)}
+.title{font-size:clamp(38px,6vw,68px);font-weight:800;text-transform:uppercase;margin-top:10px}
+.grad{background:linear-gradient(90deg,#fff 0%,#ff2a1f 55%,#c40000 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stars{background:
+  radial-gradient(1px 1px at 12% 18%,#fff8,transparent),radial-gradient(1px 1px at 68% 32%,#fff9,transparent),
+  radial-gradient(1.5px 1.5px at 40% 70%,#ffffff55,transparent),radial-gradient(1px 1px at 85% 80%,#fff7,transparent),
+  radial-gradient(1.5px 1.5px at 25% 50%,#e1060088,transparent),radial-gradient(1px 1px at 55% 10%,#fff6,transparent),
+  radial-gradient(1px 1px at 92% 45%,#ffffff55,transparent),radial-gradient(1px 1px at 5% 88%,#fff6,transparent),
+  radial-gradient(ellipse at 70% 0%,#3a0000 0%,transparent 60%),radial-gradient(ellipse at 0% 100%,#1f0000 0%,transparent 55%),var(--bg);
+  background-size:300px 300px,300px 300px,300px 300px,300px 300px,300px 300px,300px 300px,300px 300px,300px 300px,100% 100%,100% 100%,100% 100%}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;transition:.3s}
+nav.solid{background:rgba(5,5,5,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font:900 18px 'Poppins';text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.logo small{display:block;font:600 10px 'Poppins';letter-spacing:.35em;color:var(--mg)}
+.nr{display:flex;align-items:center;gap:26px}
+.menu{display:flex;gap:26px;font:600 12px 'Poppins';letter-spacing:.15em;text-transform:uppercase}
+.menu a:hover{color:var(--mg)}
+.burger{display:none;background:none;border:0;color:#fff;font:600 13px 'Poppins';letter-spacing:.15em;cursor:pointer}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;font:600 13px 'Poppins';letter-spacing:.12em;text-transform:uppercase;border-radius:40px;border:1.5px solid #fff;transition:.25s;cursor:pointer;background:none;color:#fff}
+.btn:hover{transform:translateY(-2px)}
+.btn.g{border:0;background:var(--mg);box-shadow:0 10px 30px -10px var(--mg)}
+.btn.wa{border:0;background:var(--wa);color:#04210f}
+.btn.sm{padding:11px 20px;font-size:11px}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+.hero .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 30%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,5,.95) 0%,rgba(5,5,5,.75) 35%,rgba(60,0,0,.25) 65%,rgba(5,5,5,.2) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 30%)}
+.hero-in{position:relative;z-index:2;padding:110px 24px 60px;max-width:1180px;margin:0 auto;width:100%}
+.vert{position:absolute;left:14px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font:600 11px 'Poppins';letter-spacing:.45em;text-transform:uppercase;z-index:3;color:#fffa}
+.hero h1{font-size:clamp(60px,11vw,150px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.88}
+.hero .sub{margin-top:22px;font-size:18px;max-width:440px;line-height:1.6;color:#e6dcf5}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.social{display:flex;gap:26px;margin-top:44px;align-items:center}
+.social a{font:600 12px 'Poppins';letter-spacing:.15em;text-transform:uppercase;opacity:.75;display:flex;gap:8px;align-items:center}
+.social a:hover{opacity:1;color:var(--cy)}
+.social svg{width:20px;height:20px;fill:currentColor}
+
+.band{height:10px;background:var(--mg)}
+
+section{padding:110px 0}
+
+/* PROFILE */
+.profile{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.frame{padding:6px;background:linear-gradient(135deg,var(--mg),#fff);border-radius:6px}
+.frame img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
+.profile p{color:var(--mute);line-height:1.85;font-size:16px;margin-top:18px}
+.profile p b{color:#fff}
+.soc{max-width:860px;margin:0 auto;background:#000;border:1px solid #222;border-radius:16px;padding:30px;box-shadow:0 30px 80px -30px rgba(225,6,0,.45)}
+.soc-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.live{font:600 11px 'Poppins';letter-spacing:.15em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:8px}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--wa);animation:pulse 2s infinite}
+.soc-g{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1c1c1c;border-radius:10px;overflow:hidden}
+.s{background:#0a0a0a;padding:22px}
+.s .p{display:flex;align-items:center;gap:8px;font:600 15px 'Poppins'}
+.s .p svg{width:18px;height:18px;fill:var(--mg)}
+.s b{display:block;font:800 clamp(30px,4vw,40px) 'Poppins';margin:12px 0 6px}
+.s span{display:block;font-size:13px;color:#ddd}
+.s small{font-size:12px;color:var(--mute)}
+.soc-t{text-align:center;padding-top:26px}
+.soc-t b{display:block;font:900 clamp(44px,7vw,64px) 'Poppins';margin:8px 0 4px}
+.soc-t p{font:700 16px 'Poppins'}
+.soc-t small{display:block;margin-top:6px;font-size:12px;color:var(--mute)}
+.much{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.lead2{color:var(--mute);line-height:1.85;font-size:16px;margin-top:18px}
+.lead2 b{color:#fff}
+.inst{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.inst span{border:1px solid var(--line);border-radius:30px;padding:8px 16px;font:600 13px 'Poppins'}
+@media(max-width:900px){.much{grid-template-columns:1fr;gap:40px}}
+@media(max-width:560px){.soc{padding:18px}.s{padding:16px}}
+
+/* SERVICES */
+.serv{background:var(--bg2)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.card{border:1px solid var(--line);border-radius:8px;padding:28px 22px;background:linear-gradient(180deg,rgba(225,6,0,.08),transparent);transition:.25s;display:flex;flex-direction:column}
+.card:hover{border-color:var(--mg);transform:translateY(-4px)}
+.card .ic{font-size:30px}
+.card h4{font-size:20px;font-weight:700;margin:16px 0 10px}
+.card p{color:var(--mute);font-size:14px;line-height:1.7;flex:1}
+.card a{margin-top:18px;font:600 12px 'Poppins';letter-spacing:.12em;text-transform:uppercase;color:var(--cy)}
+.center{text-align:center}
+
+/* SPOTLIGHT */
+.spot{position:relative;height:78vh;min-height:460px;overflow:hidden}
+.spot img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+.spot::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--bg) 2%,rgba(5,5,5,.2) 50%,var(--bg) 100%)}
+.spot .q{position:absolute;z-index:2;left:0;right:0;bottom:50px;text-align:center;padding:0 20px}
+.spot h3{font-size:clamp(34px,5.5vw,72px);font-weight:900;text-transform:uppercase}
+
+/* EVENTS */
+.ev{display:grid;grid-template-columns:90px 1fr auto;gap:24px;align-items:center;padding:22px 26px;border:1px solid var(--line);border-radius:8px;margin-top:14px;background:rgba(255,255,255,.02)}
+.ev .d{font:800 38px 'Poppins';line-height:1;text-align:center}
+.ev .d small{display:block;font:600 12px 'Poppins';color:var(--mg);letter-spacing:.2em}
+.ev h4{font-size:20px;font-weight:700;text-transform:uppercase}
+.ev p{color:var(--mute);font-size:14px;margin-top:4px}
+.empty{color:var(--mg);font:600 15px 'Poppins';margin-top:20px}
+.ev .d{color:#fff;background:var(--mg);border-radius:6px;padding:10px 0}
+.ev .d small{color:#fff;opacity:.85}
+.ev.free{border-color:var(--wa);background:rgba(37,211,102,.08)}
+.ev.free .d{background:var(--wa)}
+.ev.free h4{color:var(--wa)}
+.month{font:800 22px 'Poppins';text-transform:uppercase;margin:34px 0 4px;letter-spacing:.05em}
+/* flyers */
+#flystrip{margin-bottom:20px}
+.fs-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.fs-nav{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:none;color:#fff;font-size:22px;cursor:pointer;margin-left:8px}
+.fs-nav:hover{border-color:var(--mg);background:var(--mg)}
+.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:none}
+.track::-webkit-scrollbar{display:none}
+.fly{all:unset;cursor:zoom-in;position:relative;flex:0 0 220px;aspect-ratio:9/16;border-radius:10px;overflow:hidden;scroll-snap-align:start;border:1px solid var(--line);transition:.3s}
+.fly img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.fly:hover{border-color:var(--mg);transform:translateY(-4px)}
+.fly:hover img{transform:scale(1.05)}
+.fly::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent 45%)}
+.fd{position:absolute;top:10px;left:10px;z-index:2;background:var(--mg);border-radius:6px;padding:6px 10px;font:800 22px 'Poppins';line-height:1;text-align:center}
+.fd small{display:block;font:600 10px 'Poppins';letter-spacing:.15em}
+.fn{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;font:700 15px 'Poppins';line-height:1.2}
+.fn small{display:block;font:500 12px 'Raleway';color:var(--mute);margin-top:3px}
+.ev.hasf{grid-template-columns:auto 90px 1fr auto}
+.evf{all:unset;cursor:zoom-in;width:54px;height:80px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.evf img{width:100%;height:100%;object-fit:cover}
+.eva{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.btn.ghost{border-color:var(--line)}
+.flymodal{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.94);display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px}
+.flymodal.on{display:flex}
+.flymodal img{max-height:78vh;max-width:92vw;border-radius:8px}
+.flymodal .x{position:absolute;top:10px;right:14px;background:none;border:0;color:#fff;font:600 32px 'Poppins';cursor:pointer;padding:12px}
+@media(max-width:560px){.fly{flex-basis:62vw}.ev.hasf{grid-template-columns:54px 64px 1fr}.ev.hasf .eva{grid-column:1/-1;justify-content:stretch}.ev.hasf .eva .btn{flex:1;justify-content:center}}
+/* entrada */
+.gate{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(ellipse at center,rgba(60,0,0,.85),rgba(0,0,0,.97) 70%),url(img/04.jpg) center/cover;transition:opacity .6s}
+.gate.out{opacity:0;pointer-events:none}
+.gate h2{font:900 clamp(44px,10vw,110px) 'Poppins';text-transform:uppercase;line-height:.9;margin:14px 0 10px}
+.gate p{color:#ddd;max-width:420px;line-height:1.6}
+.gate .go{margin-top:30px;font-size:15px;padding:18px 34px}
+.gate .skip{margin-top:16px;background:none;border:0;color:var(--mute);font:500 13px 'Raleway';text-decoration:underline;cursor:pointer}
+.eqb{display:flex;gap:4px;align-items:flex-end;height:26px;margin-top:22px}
+.eqb i{width:4px;background:var(--mg);animation:eqb 1s infinite alternate}
+.eqb i:nth-child(2){animation-delay:.2s}.eqb i:nth-child(3){animation-delay:.4s}.eqb i:nth-child(4){animation-delay:.1s}.eqb i:nth-child(5){animation-delay:.3s}
+@keyframes eqb{from{height:4px}to{height:26px}}
+.vids{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:14px;margin-top:44px}
+.vid{all:unset;cursor:pointer;position:relative;border-radius:8px;overflow:hidden;background:#111 center/cover no-repeat;aspect-ratio:16/9;width:100%}
+.vid.main{grid-row:span 2;aspect-ratio:auto;min-height:100%}
+.vid::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 60%)}
+.vid::after{content:"▶";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:var(--mg);display:grid;place-items:center;font-size:24px;color:#fff;padding-left:4px;box-sizing:border-box;transition:.2s}
+.vid:hover::after{transform:translate(-50%,-50%) scale(1.1)}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid.on::before,.vid.on::after{display:none}
+@media(max-width:700px){.vids{grid-template-columns:1fr;grid-template-rows:auto}.vid.main{aspect-ratio:16/9}}
+
+/* GALLERY */
+.gal{background:#000}
+.ggrid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:12px;margin-top:44px}
+.ggrid button{all:unset;cursor:zoom-in;overflow:hidden;border-radius:6px}
+.ggrid button.t{grid-row:span 2}
+.ggrid button.w{grid-column:span 2}
+.ggrid img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.ggrid button:hover img{transform:scale(1.05)}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center}
+.lb.on{display:flex}
+.lb img{max-width:92vw;max-height:86vh}
+.lb button{position:absolute;background:none;border:0;color:#fff;font:600 34px 'Poppins';cursor:pointer;padding:16px}
+.lb .x{top:10px;right:14px}.lb .p{left:6px}.lb .n{right:6px}
+
+/* BOOKING */
+.book{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.book .lead{color:var(--mute);font-size:17px;line-height:1.7;margin-top:18px}
+.checks{list-style:none;margin-top:26px}
+.checks li{padding:8px 0;color:#e6dcf5}
+.checks li::before{content:"✓";color:var(--cy);font-weight:700;margin-right:12px}
+form{border:1px solid var(--line);border-radius:10px;padding:30px;background:rgba(255,255,255,.03)}
+form label{display:block;font:600 11px 'Poppins';letter-spacing:.15em;text-transform:uppercase;color:var(--mute);margin:14px 0 6px}
+form input,form select,form textarea{width:100%;background:#111;border:1px solid var(--line);border-radius:6px;padding:13px;color:#fff;font:15px 'Raleway'}
+form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--mg)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+form .btn{width:100%;justify-content:center;margin-top:22px}
+.alt{margin-top:14px;font-size:13px;color:var(--mute);text-align:center}
+.alt a{color:var(--cy)}
+
+footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(--mute)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+/* FLOAT WA */
+.fwa{position:fixed;right:18px;bottom:92px;z-index:70;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:pulse 2.5s infinite}
+.fwa svg{width:30px;height:30px;fill:#fff}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+
+/* PLAYER */
+.player{position:fixed;left:0;right:0;bottom:0;z-index:60;height:76px;background:#000;border-top:3px solid #333;display:flex;align-items:center;gap:14px;padding:0 18px}
+.player .cov{width:96px;height:54px;flex:none;border-radius:4px;overflow:hidden;background:#111}
+.player .cov iframe{width:100%;height:100%;border:0;pointer-events:none}
+.snd{background:var(--mg);color:#fff;border:0;border-radius:30px;padding:9px 16px;font:600 12px 'Poppins';cursor:pointer;animation:pulse2 1.8s infinite;white-space:nowrap}
+@keyframes pulse2{50%{transform:scale(1.06)}}
+.vid .yt-fb{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:18px;gap:10px;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent 70%);font:600 13px 'Poppins';text-align:center}
+.vid.blk::after{display:none}
+@media(max-width:560px){.snd{padding:8px 12px;font-size:11px}.player .t{display:none}}
+.player .t{flex:1;min-width:0}
+.player .t b{display:block;font:600 14px 'Poppins';white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player .t small{color:var(--mute);font-size:12px}
+.player .bar{position:absolute;top:-3px;left:0;right:0;height:3px}
+.player .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--mg)}
+.pb{background:none;border:0;color:#fff;cursor:pointer;font-size:18px;width:40px;height:40px}
+.pb.main{font-size:22px}
+
+.rv{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .menu{display:none;position:fixed;inset:66px 0 auto 0;flex-direction:column;background:var(--bg);padding:24px;gap:20px;border-bottom:1px solid var(--line)}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .nr .btn{display:none}
+  .profile,.book{grid-template-columns:1fr;gap:44px}
+  .cards{grid-template-columns:1fr 1fr}
+  .ggrid{grid-template-columns:1fr 1fr;grid-auto-rows:200px;grid-auto-flow:dense}
+  .ggrid button.w{grid-column:span 2}
+  .hero .bgimg{object-position:68% 30%}
+  .hero::after{background:linear-gradient(0deg,var(--bg) 8%,rgba(5,5,5,.75) 45%,rgba(5,5,5,.15) 100%)}
+  .hero{align-items:flex-end}
+  .vert{display:none}
+  section{padding:80px 0}
+}
+@media(max-width:560px){
+  .cards{grid-template-columns:1fr}
+  .ev{grid-template-columns:64px 1fr;padding:18px}
+  .ev .btn{grid-column:1/-1;justify-content:center}
+  .row{grid-template-columns:1fr}
+  .stats b{font-size:26px}
+  .social{gap:18px;flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="kick">DJ Showman · Salsa romántica</div>
+  <h2 class="grad">Cristian<br>Aguirre</h2>
+  <p>El Peor Hombre del Mundo. Entra y vive el show.</p>
+  <div class="eqb"><i></i><i></i><i></i><i></i><i></i></div>
+  <button class="btn g go" id="gateGo">🔊 Entrar con sonido</button>
+  <button class="skip" id="gateSkip">Entrar sin sonido</button>
+</div>
+<div class="flymodal" id="flymodal"><button class="x" aria-label="Cerrar">✕</button><img alt="Flyer del evento"><div class="fm-a"></div></div>
+
+<nav id="nav">
+  <a href="#top" class="logo">Cristian Aguirre<small>DJ</small></a>
+  <div class="nr">
+    <div class="menu" id="menu">
+      <a href="#perfil">Perfil</a><a href="#servicios">Eventos</a><a href="#galeria">Galería</a><a href="#reservas">Reservas</a>
+    </div>
+    <a href="#reservas" class="btn g sm">Reservar fecha</a>
+    <button class="burger" id="burger">MENÚ ☰</button>
+  </div>
+</nav>
+
+<header class="hero stars" id="top">
+  <img class="bgimg" src="img/04.jpg" alt="DJ Cristian Aguirre rodeado de grabadoras retro" fetchpriority="high">
+  <div class="vert">El peor hombre del mundo</div>
+  <div class="hero-in">
+    <div class="kick">DJ Showman · Salsa romántica</div>
+    <h1 class="grad" style="margin-top:14px">Cristian<br>Aguirre</h1>
+    <p class="sub">Salsa romántica con músicos en vivo y un show de alto impacto. Desde Jamundí, Valle del Cauca, para más de 1,14 millones de seguidores.</p>
+    <div class="btns">
+      <a class="btn wa" href="#" data-wa="Hola Cristian, quiero cotizar una fecha para mi evento">Cotizar por WhatsApp</a>
+      <a class="btn" href="#servicios">Ver tipos de evento</a>
+    </div>
+    <div class="social">
+      <a href="https://www.instagram.com/cristian_aguirreoficial/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.1 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 2.9.3.8.7 1.5 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 2.9-.6.8-.3 1.5-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-2.9-.3-.8-.7-1.5-1.4-2.1C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg>Instagram</a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 100 24 12 12 0 000-24zm5.5 17.3a.75.75 0 01-1 .25c-2.8-1.7-6.4-2.1-10.6-1.2a.75.75 0 11-.3-1.5c4.6-1 8.6-.6 11.7 1.4.4.2.5.7.2 1zm1.5-3.3a.9.9 0 01-1.3.3c-3.2-2-8.2-2.6-12-1.4a.9.9 0 11-.6-1.8c4.4-1.3 9.8-.7 13.5 1.6.5.3.6.9.4 1.3zm.1-3.4C15.3 8.3 8.9 8.1 5.2 9.2a1.1 1.1 0 11-.6-2.1c4.3-1.3 11.3-1 15.7 1.6a1.1 1.1 0 01-1.2 1.9z"/></svg>Spotify</a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>YouTube</a>
+    </div>
+  </div>
+</header>
+<div class="band"></div>
+
+<section id="perfil" class="stars">
+  <div class="wrap profile">
+    <div class="frame rv"><img src="img/34.jpg" alt="Retrato de DJ Cristian Aguirre" loading="lazy"></div>
+    <div class="rv">
+      <div class="kick">Profile</div>
+      <h2 class="title">Cristian <span class="grad">Aguirre</span></h2>
+      <p><b>Cristian Aguirre</b>, conocido artísticamente como <b>DJ Cristian Aguirre</b>, es un DJ, showman y creador de contenido colombiano, originario de <b>Jamundí, Valle del Cauca</b>. Su propuesta está especializada en la <b>salsa romántica</b>, combinando la esencia del género con una puesta en escena moderna, músicos en vivo y espectáculos de alto impacto.</p>
+      <p>Bajo el concepto <b>«El Peor Hombre del Mundo»</b>, ha desarrollado una identidad artística que conecta la salsa con nuevas generaciones, llevando su música y espectáculo a diferentes escenarios.</p>
+      <p>Su crecimiento también se refleja en el entorno digital, donde reúne una comunidad de <b>más de 1,14 millones</b> de seguidores y suscriptores.</p>
+      <div class="btns">
+        <a class="btn g" href="#reservas">Reservar a Cristian</a>
+        <a class="btn" href="#">Descargar portafolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="comunidad" style="padding-top:0" class="stars">
+  <div class="wrap">
+    <div class="soc rv">
+      <div class="soc-h"><div class="kick">Comunidad digital</div><span class="live"><i></i>En crecimiento</span></div>
+      <div class="soc-g">
+        <div class="s"><div class="p"><svg viewBox="0 0 24 24"><path d="M24 12a12 12 0 10-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0024 12z"/></svg>Facebook</div><b data-n="190000">0</b><span>Seguidores</span><small>1 millón+ de reacciones</small></div>
+        <div class="s"><div class="p"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg>Instagram</div><b data-n="125000">0</b><span>Seguidores</span><small>388 publicaciones</small></div>
+        <div class="s"><div class="p"><svg viewBox="0 0 24 24"><path d="M19.6 6.7a4.8 4.8 0 01-3.8-4.2V2h-3.4v13.7a2.9 2.9 0 11-2-2.7V9.5a6.3 6.3 0 105.4 6.2V8.8a8.2 8.2 0 004.8 1.5V6.9l-1-.2z"/></svg>TikTok</div><b data-n="832500">0</b><span>Seguidores</span><small>9,6 millones de Me gusta</small></div>
+        <div class="s"><div class="p"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>YouTube</div><b data-n="1970">0</b><span>Suscriptores</span><small>38 videos</small></div>
+      </div>
+      <div class="soc-t">
+        <span class="kick" style="color:var(--mute)">Comunidad digital total</span>
+        <b class="grad" data-n="1149470">0</b>
+        <p>Más de 1,14 millones</p>
+        <small>Suma de seguidores y suscriptores. No representa usuarios únicos.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="serv" id="servicios">
+  <div class="wrap">
+    <div class="center rv"><div class="kick">Contrataciones</div><h2 class="title">¿Qué evento <span class="grad">tienes?</span></h2></div>
+    <div class="cards">
+      <div class="card rv"><div class="ic">🪩</div><h4>Discotecas y bares</h4><p>Noches de rumba, residencias y fiestas temáticas que llenan el lugar.</p><a href="#" data-wa="Hola Cristian, quiero cotizar una fecha para mi discoteca/bar">Cotizar →</a></div>
+      <div class="card rv"><div class="ic">💍</div><h4>Bodas y 15 años</h4><p>Desde la entrada hasta la hora loca, con la música pensada para tus invitados.</p><a href="#" data-wa="Hola Cristian, quiero cotizar para una boda / 15 años">Cotizar →</a></div>
+      <div class="card rv"><div class="ic">🏢</div><h4>Empresas</h4><p>Fiestas de fin de año, lanzamientos y eventos corporativos.</p><a href="#" data-wa="Hola Cristian, quiero cotizar un evento empresarial">Cotizar →</a></div>
+      <div class="card rv"><div class="ic">🎤</div><h4>Festivales y conciertos</h4><p>Tarimas grandes, aperturas de artistas y eventos masivos.</p><a href="#" data-wa="Hola Cristian, quiero cotizar para un festival/concierto">Cotizar →</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="muchachos">
+  <div class="wrap much">
+    <div class="rv">
+      <div class="kick">El show completo</div>
+      <h2 class="title">DJ Cristian Aguirre <span class="grad">&amp; Los Muchachos</span></h2>
+      <p class="lead2">Los Muchachos son parte esencial del espectáculo: una propuesta que fusiona la energía del DJ showman con el talento de músicos en vivo. Con <b>saxofón, timbal y congas</b>, aportan fuerza, sabor y dinamismo a cada presentación, llevando la esencia de la salsa romántica a una experiencia llena de ritmo, emoción y conexión con el público.</p>
+      <div class="inst"><span>🎷 Saxofón</span><span>🥁 Timbal</span><span>🪘 Congas</span><span>🎧 DJ Showman</span></div>
+      <div class="btns"><a class="btn wa" href="#" data-wa="Hola Cristian, quiero cotizar el show completo con Los Muchachos">Cotizar show con músicos</a></div>
+    </div>
+    <div class="frame rv"><img src="img/23.jpg" alt="DJ Cristian Aguirre y Los Muchachos" loading="lazy" style="aspect-ratio:4/3"></div>
+  </div>
+</section>
+
+<div class="spot">
+  <img src="img/39.jpg" alt="Cristian Aguirre bajo el reflector" loading="lazy">
+  <div class="q"><h3 class="rv">El Peor Hombre <span class="grad">del Mundo</span></h3></div>
+</div>
+
+<section id="eventos" class="stars">
+  <div class="wrap">
+    <div class="center rv"><div class="kick">Tour por el Valle</div><h2 class="title">Eventos en <span class="grad">vivo</span></h2></div>
+    <div style="max-width:860px;margin:40px auto 0">
+      <div id="flystrip" class="rv">
+        <div class="fs-h"><span class="kick">Próximos shows</span><div><button class="fs-nav" data-d="-1" aria-label="Anterior">‹</button><button class="fs-nav" data-d="1" aria-label="Siguiente">›</button></div></div>
+        <div class="track"></div>
+      </div>
+      <div id="evlist"></div>
+      <p class="empty center rv">Las fechas se están llenando. ¿Quieres a Cristian en tu evento? <a href="#reservas" style="text-decoration:underline">Separa tu fecha</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="shows">
+  <div class="wrap">
+    <div class="center rv"><div class="kick">Así se vive</div><h2 class="title">Shows en <span class="grad">vivo</span></h2></div>
+    <div class="vids">
+      <button class="vid main rv" data-yt="jmRryDcsykI" aria-label="Reproducir show 1"></button>
+      <button class="vid rv" data-yt="jXjpUZXu_eQ" aria-label="Reproducir show 2"></button>
+      <button class="vid rv" data-yt="b63Kt_hf3HU" aria-label="Reproducir show 3"></button>
+    </div>
+    <div class="center" style="margin-top:36px"><a class="btn g" href="#reservas">Quiero este show en mi evento</a></div>
+  </div>
+</section>
+
+<section class="gal" id="galeria">
+  <div class="wrap">
+    <div class="center rv"><div class="kick">Fotos / Videos</div><h2 class="title">Galería</h2></div>
+    <div class="ggrid" id="grid">
+      <button class="t"><img src="img/03.jpg" alt="" loading="lazy"></button>
+      <button class="w"><img src="img/20.jpg" alt="" loading="lazy" style="object-position:center 40%"></button>
+      <button class="t"><img src="img/09.jpg" alt="" loading="lazy"></button>
+      <button><img src="img/29.jpg" alt="" loading="lazy" style="object-position:center 30%"></button>
+      <button><img src="img/45.jpg" alt="" loading="lazy" style="object-position:center 25%"></button>
+      <button class="w"><img src="img/47.jpg" alt="" loading="lazy" style="object-position:center 30%"></button>
+      <button class="t"><img src="img/27.jpg" alt="" loading="lazy"></button>
+      <button class="t"><img src="img/13.jpg" alt="" loading="lazy"></button>
+    </div>
+    <div class="center" style="margin-top:36px"><a class="btn" href="https://www.instagram.com/cristian_aguirreoficial/" target="_blank" rel="noopener">Más en Instagram</a></div>
+  </div>
+</section>
+<div class="band"></div>
+
+<section id="reservas" class="stars">
+  <div class="wrap book">
+    <div class="rv">
+      <div class="kick">Contactos / Reservas</div>
+      <h2 class="title">Aparta tu <span class="grad">fecha</span></h2>
+      <p class="lead">Cuéntanos de tu evento y te respondemos por WhatsApp con disponibilidad y cotización.</p>
+      <ul class="checks">
+        <li>Respuesta el mismo día</li>
+        <li>Desde Jamundí para todo el Valle y Colombia</li>
+        <li>Repertorio a la medida de tu público</li>
+        <li>Show con músicos en vivo: saxofón, timbal y congas</li>
+      </ul>
+      <div style="margin-top:28px"><img src="img/30.jpg" alt="" loading="lazy" style="width:160px;height:160px;object-fit:cover;object-position:center 20%;border-radius:50%;border:3px solid var(--mg)"></div>
+    </div>
+    <form id="form" class="rv">
+      <div class="row">
+        <div><label for="fn">Tu nombre</label><input id="fn" required></div>
+        <div><label for="fc">Ciudad</label><input id="fc" required></div>
+      </div>
+      <div class="row">
+        <div><label for="ft">Tipo de evento</label><select id="ft"><option>Discoteca / bar</option><option>Boda</option><option>15 años</option><option>Evento empresarial</option><option>Festival / concierto</option><option>Otro</option></select></div>
+        <div><label for="fd">Fecha</label><input id="fd" type="date" required></div>
+      </div>
+      <label for="fp">Número de invitados (aprox.)</label><input id="fp" inputmode="numeric">
+      <label for="fm">Algo más que debamos saber</label><textarea id="fm" rows="3"></textarea>
+      <button class="btn wa" type="submit">Enviar por WhatsApp</button>
+      <p class="alt">¿Prefieres correo? <a href="mailto:booking@[dominio].com">booking@[dominio].com</a></p>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© 2026 DJ Cristian Aguirre · Todos los derechos reservados</span><span>Fotografía: Arango Filmmaker</span></div></footer>
+
+<a class="fwa" href="#" data-wa="Hola Cristian, quiero información para contratarte" aria-label="Escribir por WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.8.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1112 21.8zM12 0a12 12 0 00-10.3 18L0 24l6.2-1.6A12 12 0 1012 0z"/></svg></a>
+
+<div class="lb" id="lb"><button class="x" aria-label="Cerrar">✕</button><button class="p" aria-label="Anterior">‹</button><img alt=""><button class="n" aria-label="Siguiente">›</button></div>
+
+<div class="player" id="player">
+  <div class="bar"><i id="prog"></i></div>
+  <div class="cov"><div id="ytp"></div></div>
+  <div class="t"><b id="tt">Show en vivo</b><small>DJ Cristian Aguirre</small></div>
+  <button class="snd" id="snd" hidden>🔊 Activar sonido</button>
+  <button class="pb" id="prev" aria-label="Anterior">⏮</button>
+  <button class="pb main" id="play" aria-label="Reproducir">▶</button>
+  <button class="pb" id="next" aria-label="Siguiente">⏭</button>
+</div>
+
+<script>
+// ⚠️ Cambiar por el WhatsApp real (solo números, con 57)
+const WA='573206924727';
+
+// TOUR — las fechas pasadas se ocultan solas
+// Cada fecha: {d:fecha, c:ciudad, l:lugar, n:nombre del evento, f:flyer (img/flyers/FECHA.webp), tel:reservas del organizador, free:fecha disponible}
+const EV=[
+ {d:'2026-11-14',c:'Tuluá',l:'Discoteca Nuevayol'},{d:'2026-11-15',c:'Yumbo',l:'Medallo'},
+ {d:'2026-11-21',c:'Jamundí',l:'Los Guayabales',n:'Jamundí Vive Salsa · Fiesta Blanca',f:1,tel:'3002549856'},
+ {d:'2026-11-22',c:'Envigado',l:'Olympus VIP',n:'Tardeo Salsero',f:1,tel:'3052711547'},
+ {d:'2026-11-28',c:'Santander de Quilichao',l:'Coliseo'},{d:'2026-11-29',c:'Zarzal',l:'Niveles Club'},
+ {d:'2026-11-30',c:'Cali',l:'Kahuate · 7:00 p.m.',n:'Alborada Salsera',f:1,tel:'3183349073'},
+ {d:'2026-12-05',c:'Florida',l:'Parqueadero OIS',n:'Festival Decembrino',f:1,tel:'3128159090'},
+ {d:'2026-12-10',c:'Jueves',l:'Salsa con Letra'},{d:'2026-12-12',free:1},
+ {d:'2026-12-19',c:'Cerrito',l:'Disco 911'},{d:'2026-12-26',c:'Festival de DJs',l:'Bailatino Menga'},
+ {d:'2026-12-29',c:'Cali',l:'Outlet de la Rumba',n:'Feria del Barrio',f:1,tel:'3112398326'},
+ {d:'2026-12-31',c:'Jamundí',l:'Fin de año'}];
+const MES=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'],MESL=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const flyerSrc=e=>`img/flyers/${e.d}.webp`;
+(()=>{const today=new Date();today.setHours(0,0,0,0);let html='',strip='',last=-1;
+ const up=EV.filter(e=>new Date(e.d+'T00:00')>=today);
+ up.forEach(e=>{const dt=new Date(e.d+'T00:00'),m=dt.getMonth(),day=String(dt.getDate()).padStart(2,'0');
+  if(m!==last){html+=`<div class="month rv">${MESL[m]}</div>`;last=m}
+  const tix=e.tel?`<a class="btn sm" href="https://wa.me/57${e.tel}?text=${encodeURIComponent('Hola, quiero boletas/reservas para '+(e.n||'el evento')+' con DJ Cristian Aguirre')}" target="_blank" rel="noopener">Boletas</a>`:'';
+  if(e.free){html+=`<div class="ev free rv"><div class="d">${day}<small>${MES[m]}</small></div><div><h4>¡Fecha disponible!</h4><p>${day} de ${MESL[m].toLowerCase()} · Sé el primero en apartarla</p></div><a class="btn wa sm" href="#" data-wa="Hola Cristian, quiero separar la fecha del ${day} de ${MESL[m].toLowerCase()} para mi evento">Separar fecha</a></div>`;return}
+  html+=`<div class="ev rv${e.f?' hasf':''}">${e.f?`<button class="evf" data-fly="${e.d}" aria-label="Ver flyer"><img src="${flyerSrc(e)}" alt="" loading="lazy"></button>`:''}<div class="d">${day}<small>${MES[m]}</small></div><div><h4>${e.n||e.c}</h4><p>${e.n?e.c+' · ':''}${e.l}</p></div><div class="eva">${e.f?`<button class="btn sm ghost" data-fly="${e.d}">Ver flyer</button>`:''}${tix}</div></div>`;
+  if(e.f)strip+=`<button class="fly" data-fly="${e.d}"><img src="${flyerSrc(e)}" alt="Flyer ${e.n}" loading="lazy"><span class="fd">${day}<small>${MES[m]}</small></span><span class="fn">${e.n}<small>${e.c}</small></span></button>`});
+ document.getElementById('evlist').innerHTML=html;
+ const fs=document.getElementById('flystrip');if(strip){fs.querySelector('.track').innerHTML=strip}else fs.remove();
+ // Modal del flyer
+ const fm=document.getElementById('flymodal');
+ document.addEventListener('click',ev=>{const b=ev.target.closest('[data-fly]');if(!b)return;const e=EV.find(x=>x.d===b.dataset.fly);
+  fm.querySelector('img').src=flyerSrc(e);
+  const a=fm.querySelector('.fm-a');a.innerHTML=e.tel?`<a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/57${e.tel}?text=${encodeURIComponent('Hola, quiero boletas/reservas para '+e.n+' con DJ Cristian Aguirre')}">Boletas y reservas</a>`:'';
+  fm.classList.add('on')});
+ fm.onclick=ev=>{if(ev.target===fm||ev.target.closest('.x'))fm.classList.remove('on')};
+ addEventListener('keydown',ev=>{if(ev.key==='Escape')fm.classList.remove('on')});
+ document.querySelectorAll('.fs-nav').forEach(b=>b.onclick=()=>fs.querySelector('.track').scrollBy({left:(b.dataset.d==='1'?1:-1)*300,behavior:'smooth'}));
+})();
+const wa=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+document.querySelectorAll('[data-wa]').forEach(a=>{a.href=wa(a.dataset.wa);a.target='_blank';a.rel='noopener'});
+
+document.getElementById('form').onsubmit=e=>{e.preventDefault();const v=id=>document.getElementById(id).value.trim();
+  const msg=`Hola Cristian 👋 Quiero cotizar un evento:\n• Nombre: ${v('fn')}\n• Ciudad: ${v('fc')}\n• Evento: ${v('ft')}\n• Fecha: ${v('fd')}\n• Invitados: ${v('fp')||'—'}\n• Detalles: ${v('fm')||'—'}`;
+  window.open(wa(msg),'_blank')};
+
+const nav=document.getElementById('nav'),menu=document.getElementById('menu');
+addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>40));
+document.getElementById('burger').onclick=()=>menu.classList.toggle('open');
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+const btns=[...document.querySelectorAll('#grid button')],srcs=btns.map(b=>b.querySelector('img').src);
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img');let cur=0;
+const open=i=>{cur=(i+srcs.length)%srcs.length;lbi.src=srcs[cur];lb.classList.add('on')};
+btns.forEach((b,i)=>b.onclick=()=>open(i));
+lb.querySelector('.x').onclick=()=>lb.classList.remove('on');
+lb.querySelector('.p').onclick=()=>open(cur-1);lb.querySelector('.n').onclick=()=>open(cur+1);
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('on')};
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')open(cur-1);if(e.key==='ArrowRight')open(cur+1)});
+
+// ===== VIDEOS DE SHOWS + REPRODUCTOR =====
+// Los mismos videos suenan en el reproductor de abajo. Si YouTube bloquea uno (derechos de autor),
+// se salta solo y en su tarjeta aparece "Ver en YouTube".
+const TRACKS=[{id:'jmRryDcsykI',t:'Salsa Pop (Live Mix 4K)'},{id:'jXjpUZXu_eQ',t:'Mix Hablando Claro vol.1'},{id:'b63Kt_hf3HU',t:'Live set Palmira'}];
+const VOL=20; // volumen suavecito (0–100)
+const ytUrl=id=>`https://www.youtube.com/watch?v=${id}`;
+const isFile=location.protocol==='file:'; // YouTube no reproduce en archivos abiertos con doble clic
+const vids=[...document.querySelectorAll('.vid')],pbtn=document.getElementById('play'),snd=document.getElementById('snd');
+let ti=0,bar=null,ready=false,blocked=new Set(),unlocked=false;
+
+function markBlocked(id){blocked.add(id);vids.filter(v=>v.dataset.yt===id).forEach(v=>{v.classList.add('blk');v.innerHTML=`<div class="yt-fb">Este show solo se puede ver en YouTube<a class="btn sm" href="${ytUrl(id)}" target="_blank" rel="noopener">Ver en YouTube ↗</a></div>`})}
+vids.forEach(v=>{v.style.backgroundImage=`url(https://i.ytimg.com/vi/${v.dataset.yt}/hqdefault.jpg)`;
+ v.onclick=e=>{if(v.classList.contains('on')||v.classList.contains('blk'))return;
+  if(isFile||!window.YT||!YT.Player){window.open(ytUrl(v.dataset.yt),'_blank');return}
+  bar&&bar.pauseVideo&&bar.pauseVideo();v.classList.add('on');const d=document.createElement('div');v.innerHTML='';v.appendChild(d);
+  new YT.Player(d,{videoId:v.dataset.yt,playerVars:{autoplay:1,rel:0,playsinline:1},events:{onError:()=>markBlocked(v.dataset.yt)}})}});
+
+function setTitle(){document.getElementById('tt').textContent=TRACKS[ti].t}
+function go(i,dir=1){let n=0;ti=(i+TRACKS.length)%TRACKS.length;
+ while(blocked.has(TRACKS[ti].id)&&n++<TRACKS.length)ti=(ti+dir+TRACKS.length)%TRACKS.length;
+ setTitle();if(ready)bar.loadVideoById(TRACKS[ti].id)}
+function fadeIn(){let v=0;bar.setVolume(0);const t=setInterval(()=>{v+=2;bar.setVolume(Math.min(v,VOL));if(v>=VOL)clearInterval(t)},120)}
+let wantSound=false,silent=false;
+function unlock(){wantSound=true;silent=false;if(unlocked||!ready)return;unlocked=true;snd.hidden=true;bar.unMute();fadeIn();if(bar.getPlayerState()!==1)bar.playVideo()}
+// Pantalla de entrada: el clic en "Entrar con sonido" es el permiso que piden los navegadores para sonar
+const gate=document.getElementById('gate');
+const closeGate=()=>{gate.classList.add('out');setTimeout(()=>gate.remove(),700)};
+document.getElementById('gateGo').onclick=e=>{e.stopPropagation();unlock();closeGate()};
+document.getElementById('gateSkip').onclick=e=>{e.stopPropagation();silent=true;closeGate();snd.hidden=false};
+['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{if(!silent&&!document.getElementById('gate'))unlock()},{passive:true}));
+snd.onclick=e=>{e.stopPropagation();unlock()};
+
+window.onYouTubeIframeAPIReady=()=>{
+ bar=new YT.Player('ytp',{videoId:TRACKS[0].id,playerVars:{autoplay:1,mute:1,controls:0,rel:0,playsinline:1,disablekb:1},events:{
+  onReady:()=>{ready=true;setTitle();bar.setVolume(VOL);
+   // intentamos sonar directo; si el navegador lo bloquea, arranca en silencio y suena al primer toque
+   if(wantSound){unlock();return}
+   bar.mute();bar.playVideo()},
+  onStateChange:e=>{pbtn.textContent=e.data===1?'❚❚':'▶';if(e.data===0)go(ti+1)},
+  onError:()=>{markBlocked(TRACKS[ti].id);go(ti+1)}}});
+ setInterval(()=>{if(ready&&bar.getDuration)document.getElementById('prog').style.width=(bar.getCurrentTime()/bar.getDuration()*100||0)+'%'},500)};
+
+pbtn.onclick=e=>{e.stopPropagation();if(isFile||!ready){window.open(ytUrl(TRACKS[ti].id),'_blank');return}
+ if(!unlocked){unlock();return}bar.getPlayerState()===1?bar.pauseVideo():bar.playVideo()};
+document.getElementById('prev').onclick=e=>{e.stopPropagation();unlock();go(ti-1,-1)};
+document.getElementById('next').onclick=e=>{e.stopPropagation();unlock();go(ti+1)};
+setTitle();
+if(!isFile){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s)}
+
+// Contadores de la comunidad digital
+const fmt=n=>n.toLocaleString('es-CO');
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);
+ const el=e.target,end=+el.dataset.n,t0=performance.now(),D=1600;
+ const step=t=>{const k=Math.min((t-t0)/D,1),v=Math.round(end*(1-Math.pow(1-k,3)));el.textContent=fmt(v);if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}),{threshold:.4});
+document.querySelectorAll('[data-n]').forEach(el=>{el.textContent=fmt(+el.dataset.n);cio.observe(el)});
+</script>
+</body>
+</html>
