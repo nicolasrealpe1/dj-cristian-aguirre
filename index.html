@@ -496,20 +496,11 @@ const WA='573206924727';
 
 // TOUR — las fechas pasadas se ocultan solas
 // Cada fecha: {d:fecha, c:ciudad, l:lugar, n:nombre del evento, f:flyer (img/flyers/FECHA.webp), tel:reservas del organizador, free:fecha disponible}
-const EV=[
- {d:'2026-11-14',c:'Tuluá',l:'Discoteca Nuevayol'},{d:'2026-11-15',c:'Yumbo',l:'Medallo'},
- {d:'2026-11-21',c:'Jamundí',l:'Los Guayabales',n:'Jamundí Vive Salsa · Fiesta Blanca',f:1,tel:'3002549856'},
- {d:'2026-11-22',c:'Envigado',l:'Olympus VIP',n:'Tardeo Salsero',f:1,tel:'3052711547'},
- {d:'2026-11-28',c:'Santander de Quilichao',l:'Coliseo'},{d:'2026-11-29',c:'Zarzal',l:'Niveles Club'},
- {d:'2026-11-30',c:'Cali',l:'Kahuate · 7:00 p.m.',n:'Alborada Salsera',f:1,tel:'3183349073'},
- {d:'2026-12-05',c:'Florida',l:'Parqueadero OIS',n:'Festival Decembrino',f:1,tel:'3128159090'},
- {d:'2026-12-10',c:'Jueves',l:'Salsa con Letra'},{d:'2026-12-12',free:1},
- {d:'2026-12-19',c:'Cerrito',l:'Disco 911'},{d:'2026-12-26',c:'Festival de DJs',l:'Bailatino Menga'},
- {d:'2026-12-29',c:'Cali',l:'Outlet de la Rumba',n:'Feria del Barrio',f:1,tel:'3112398326'},
- {d:'2026-12-31',c:'Jamundí',l:'Fin de año'}];
+let EV=[];
 const MES=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'],MESL=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const flyerSrc=e=>`img/flyers/${e.d}.webp`;
-(()=>{const today=new Date();today.setHours(0,0,0,0);let html='',strip='',last=-1;
+const flyerSrc=e=>typeof e.f==='string'?e.f:`img/flyers/${e.d}.webp`;
+// Los eventos viven en events.json (los actualiza el bot de Telegram)
+function renderEV(){const today=new Date();today.setHours(0,0,0,0);let html='',strip='',last=-1;
  const up=EV.filter(e=>new Date(e.d+'T00:00')>=today);
  up.forEach(e=>{const dt=new Date(e.d+'T00:00'),m=dt.getMonth(),day=String(dt.getDate()).padStart(2,'0');
   if(m!==last){html+=`<div class="month rv">${MESL[m]}</div>`;last=m}
@@ -517,8 +508,10 @@ const flyerSrc=e=>`img/flyers/${e.d}.webp`;
   if(e.free){html+=`<div class="ev free rv"><div class="d">${day}<small>${MES[m]}</small></div><div><h4>¡Fecha disponible!</h4><p>${day} de ${MESL[m].toLowerCase()} · Sé el primero en apartarla</p></div><a class="btn wa sm" href="#" data-wa="Hola Cristian, quiero separar la fecha del ${day} de ${MESL[m].toLowerCase()} para mi evento">Separar fecha</a></div>`;return}
   html+=`<div class="ev rv${e.f?' hasf':''}">${e.f?`<button class="evf" data-fly="${e.d}" aria-label="Ver flyer"><img src="${flyerSrc(e)}" alt="" loading="lazy"></button>`:''}<div class="d">${day}<small>${MES[m]}</small></div><div><h4>${e.n||e.c}</h4><p>${e.n?e.c+' · ':''}${e.l}</p></div><div class="eva">${e.f?`<button class="btn sm ghost" data-fly="${e.d}">Ver flyer</button>`:''}${tix}</div></div>`;
   if(e.f)strip+=`<button class="fly" data-fly="${e.d}"><img src="${flyerSrc(e)}" alt="Flyer ${e.n}" loading="lazy"><span class="fd">${day}<small>${MES[m]}</small></span><span class="fn">${e.n}<small>${e.c}</small></span></button>`});
- document.getElementById('evlist').innerHTML=html;
- const fs=document.getElementById('flystrip');if(strip){fs.querySelector('.track').innerHTML=strip}else fs.remove();
+ const el=document.getElementById('evlist');el.innerHTML=html||'<p class="lead2" style="text-align:center">Próximas fechas muy pronto. Escríbenos para apartar la tuya.</p>';
+ const fs=document.getElementById('flystrip');if(strip){fs.querySelector('.track').innerHTML=strip}else fs.style.display='none';
+ [el,fs].forEach(c=>{c.querySelectorAll('[data-wa]').forEach(a=>{a.href=wa(a.dataset.wa);a.target='_blank';a.rel='noopener'});c.querySelectorAll('.rv').forEach(x=>io.observe(x))});
+ if(renderEV.done)return;renderEV.done=1;
  // Modal del flyer
  const fm=document.getElementById('flymodal');
  document.addEventListener('click',ev=>{const b=ev.target.closest('[data-fly]');if(!b)return;const e=EV.find(x=>x.d===b.dataset.fly);
@@ -528,7 +521,8 @@ const flyerSrc=e=>`img/flyers/${e.d}.webp`;
  fm.onclick=ev=>{if(ev.target===fm||ev.target.closest('.x'))fm.classList.remove('on')};
  addEventListener('keydown',ev=>{if(ev.key==='Escape')fm.classList.remove('on')});
  document.querySelectorAll('.fs-nav').forEach(b=>b.onclick=()=>fs.querySelector('.track').scrollBy({left:(b.dataset.d==='1'?1:-1)*300,behavior:'smooth'}));
-})();
+}
+fetch('events.json?'+Date.now()).then(r=>r.json()).then(j=>{EV=j}).catch(()=>{}).finally(()=>renderEV());
 const wa=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
 document.querySelectorAll('[data-wa]').forEach(a=>{a.href=wa(a.dataset.wa);a.target='_blank';a.rel='noopener'});
 
