@@ -361,7 +361,7 @@ WEBHOOK_SECRET = os.environ.get("WEBHOOK_SECRET", "")
 def worker(path, data=None):
     req = urllib.request.Request(f"{WORKER_URL}{path}?key={WEBHOOK_SECRET}",
                                  data=json.dumps(data).encode() if data is not None else None,
-                                 headers={"Content-Type": "application/json"})
+                                 headers={"Content-Type": "application/json", "User-Agent": "bot-fechas/1.0"})
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read()
 
