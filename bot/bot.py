@@ -7,7 +7,7 @@ Variables de entorno:
   TG_TOKEN     token del bot (de @BotFather)
   ALLOWED_IDS  IDs de Telegram autorizados, separados por coma
 """
-import base64, io, json, os, re, sys, urllib.parse, urllib.request
+import base64, io, time, json, os, re, sys, urllib.parse, urllib.request
 from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,7 +16,7 @@ FLYERS = os.path.join(ROOT, "img", "flyers")
 OFFSET = os.path.join(ROOT, "bot", "offset.txt")
 PENDING = os.path.join(ROOT, "bot", "pending.json")
 GEMINI_KEY = os.environ.get("GEMINI_KEY", "")
-GEMINI_MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-flash-latest"]
+GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta/"
 
 TOKEN = os.environ.get("TG_TOKEN", "")
 ALLOWED = {x.strip() for x in os.environ.get("ALLOWED_IDS", "").split(",") if x.strip()}
@@ -133,19 +133,39 @@ def gemini(parts):
     body = json.dumps({"contents": [{"parts": parts}],
                        "generationConfig": {"responseMimeType": "application/json", "temperature": 0}}).encode()
     err = None
-    for model in GEMINI_MODELS:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_KEY}"
-        try:
+    for model in gemini_models():
+        for intento in range(3):
+          url = f"{GEMINI_BASE}{model}:generateContent?key={GEMINI_KEY}"
+          try:
             req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
-            with urllib.request.urlopen(req, timeout=60) as r:
+            with urllib.request.urlopen(req, timeout=90) as r:
                 out = json.load(r)
             txt = out["candidates"][0]["content"]["parts"][0]["text"]
             data = json.loads(txt)
             return data[0] if isinstance(data, list) else data
-        except Exception as e:
+          except Exception as e:
             err = e
             print(f"Gemini {model}: {e}", file=sys.stderr)
+            if getattr(e, "code", None) in (429, 500, 503):
+                time.sleep(4 * (intento + 1)); continue
+            break
     raise RuntimeError(err)
+
+
+def gemini_models():
+    """Los modelos 'flash' que tu clave puede usar hoy (Google les cambia el nombre seguido)."""
+    try:
+        with urllib.request.urlopen(f"{GEMINI_BASE}models?pageSize=200&key={GEMINI_KEY}", timeout=30) as r:
+            ms = [m["name"] for m in json.load(r).get("models", [])
+                  if "generateContent" in m.get("supportedGenerationMethods", [])]
+    except Exception as e:
+        print("No pude listar modelos:", e, file=sys.stderr); ms = []
+    def score(n):
+        return (("flash" not in n) * 10 + ("lite" in n) * 3 + ("preview" in n or "exp" in n) * 2
+                + ("image" in n or "tts" in n or "audio" in n or "live" in n) * 20 - ("latest" in n))
+    ms = sorted([m for m in ms if "flash" in m], key=score)
+    print("Modelos:", ms[:4])
+    return (ms or ["models/gemini-flash-latest"])[:4]
 
 
 def to_event(j):
@@ -155,6 +175,13 @@ def to_event(j):
     except (TypeError, ValueError):
         return None
     y = j.get("anio")
+    if not y:  # sin año: si fue hace poco, es de este año (ya pasó), no del próximo
+        try:
+            este = date(date.today().year, m, d)
+            if 0 < (date.today() - este).days <= 90:
+                y = este.year
+        except ValueError:
+            pass
     fecha = parse_date(f"{d}/{m}" + (f"/{int(y)}" if y else ""))
     if not fecha:
         return None
@@ -180,8 +207,9 @@ def correct(ev, txt):
 
 
 def resumen(e):
+    pasada = "\n⚠️ Esa fecha ya pasó: no se mostrará en la página." if e["d"] < date.today().isoformat() else ""
     return (f"📅 *{bonita(e['d'])}* · {e.get('n') or 'Sin nombre'}\n📍 {e['l'] or '¿lugar?'}, {e['c'] or '¿ciudad?'}"
-            + (f"\n📲 Boletas: {e['tel']}" if e.get("tel") else "\n📲 Sin WhatsApp de boletas"))
+            + (f"\n📲 Boletas: {e['tel']}" if e.get("tel") else "\n📲 Sin WhatsApp de boletas") + pasada)
 
 
 def load_pending():
@@ -304,7 +332,12 @@ def handle(msg):
     # Flyer sin texto: lo lee la IA y pide confirmación
     if not nuevo and msg.get("photo") and GEMINI_KEY:
         fid = msg["photo"][-1]["file_id"]
-        e = to_event(read_flyer(download(fid)))
+        try:
+            e = to_event(read_flyer(download(fid)))
+        except Exception as x:
+            print("Error leyendo flyer:", x, file=sys.stderr)
+            reply(chat, "😕 La IA que lee los flyers está ocupada. Mándame el flyer otra vez en unos minutos (o con el texto escrito).")
+            return False
         if not e:
             reply(chat, "No pude encontrar la fecha en ese flyer 🤔\nMándalo de nuevo con el texto:\n`21/11 | Jamundí | Los Guayabales | Fiesta Blanca | 3002549856`")
             return False
