@@ -1,0 +1,10 @@
+name = "bot-fechas-cristian"
+main = "index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+REPO = "nicolasrealpe1/dj-cristian-aguirre"
+
+[[kv_namespaces]]
+binding = "Q"
+id = "6e184f3269ac47a1bf9d44f62506d9cd"

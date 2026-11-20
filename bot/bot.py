@@ -354,24 +354,53 @@ def handle(msg):
     return True
 
 
+WORKER_URL = os.environ.get("WORKER_URL", "").rstrip("/")
+WEBHOOK_SECRET = os.environ.get("WEBHOOK_SECRET", "")
+
+
+def worker(path, data=None):
+    req = urllib.request.Request(f"{WORKER_URL}{path}?key={WEBHOOK_SECRET}",
+                                 data=json.dumps(data).encode() if data is not None else None,
+                                 headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.read()
+
+
+def fetch_updates(offset):
+    """Con el Worker: cola de Cloudflare + el mensaje que despertó esta corrida. Sin él: getUpdates."""
+    if WORKER_URL and WEBHOOK_SECRET:
+        ups = {}
+        try:
+            for u in json.loads(worker("/pending")):
+                ups[u["update_id"]] = u
+        except Exception as e:
+            print("No pude leer la cola del Worker:", e, file=sys.stderr)
+        ev_path = os.environ.get("GITHUB_EVENT_PATH")
+        if ev_path and os.path.exists(ev_path):
+            u = (json.load(open(ev_path)).get("client_payload") or {}).get("update")
+            if u:
+                ups[u["update_id"]] = u
+        return [ups[k] for k in sorted(ups)]
+    return api("getUpdates", offset=offset, timeout=0)["result"]
+
+
 def main():
     if not TOKEN:
         print("Falta TG_TOKEN"); return
-    me = api("getMe")["result"]
-    wh = api("getWebhookInfo")["result"]
-    print(f"Bot: @{me.get('username')} · webhook: {'sí' if wh.get('url') else 'no'} · pendientes: {wh.get('pending_update_count')}")
-    if wh.get("url"):
-        api("deleteWebhook")
     offset = 0
     if os.path.exists(OFFSET):
         offset = int(open(OFFSET).read().strip() or 0)
-    ups = api("getUpdates", offset=offset, timeout=0)["result"]
-    changed = False
+    ups = fetch_updates(offset)
+    vistos, changed, n = [], False, 0
     for u in ups:
+        vistos.append(u["update_id"])
+        if u["update_id"] < offset:
+            continue  # ya procesado
         offset = u["update_id"] + 1
         msg = u.get("message") or u.get("edited_message")
         if not msg:
             continue
+        n += 1
         try:
             changed |= bool(handle(msg))
         except Exception as e:
@@ -379,7 +408,12 @@ def main():
             reply(msg["chat"]["id"], "😕 Hubo un error procesando ese mensaje. Intenta de nuevo.")
     with open(OFFSET, "w") as f:
         f.write(str(offset))
-    print(f"{len(ups)} mensajes, cambios: {changed}")
+    if WORKER_URL and vistos:
+        try:
+            worker("/ack", vistos)
+        except Exception as e:
+            print("No pude limpiar la cola:", e, file=sys.stderr)
+    print(f"{n} mensajes, cambios: {changed}")
 
 
 if __name__ == "__main__":
